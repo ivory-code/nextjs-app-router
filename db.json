@@ -1,0 +1,20 @@
+{
+  "topics": [
+    {"id": 1, "title": "topic 01", "body": "body 01"},
+    {"id": 2, "title": "topic 02", "body": "body 02"}
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "title": "title 01",
+      "author": "ivory-code"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "comments 01",
+      "postId": 1
+    }
+  ]
+}
