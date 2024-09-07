@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "json-server": "json-server --port 9999 --watch db.json"
   },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^8.4.0",
