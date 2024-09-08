@@ -1,3 +1,4 @@
+import Control from '@/app/Control'
 import {Metadata} from 'next'
 import Link from 'next/link'
 import './globals.css'
@@ -10,11 +11,19 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
+type TopicData = {
+  id: number
+  title: string
+}
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/topics`)
+  const topics = await res.json()
+
   return (
     <html>
       <body>
@@ -22,25 +31,16 @@ export default function RootLayout({
           <Link href="/">WEB</Link>
         </h1>
         <ol>
-          <li>
-            <Link href="/read/1">html</Link>
-          </li>
-          <li>
-            <Link href="/read/2">css</Link>
-          </li>
+          {topics.map((topic: TopicData) => {
+            return (
+              <li key={topic.id}>
+                <Link href={`/read/${topic.id}`}>{topic.title}</Link>
+              </li>
+            )
+          })}
         </ol>
         {children}
-        <ul>
-          <li>
-            <Link href="/create">Create</Link>
-          </li>
-          <li>
-            <Link href="/update/1">Update</Link>
-          </li>
-          <li>
-            <input type="button" value="delete" />
-          </li>
-        </ul>
+        <Control />
       </body>
     </html>
   )
