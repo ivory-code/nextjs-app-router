@@ -1,11 +1,5 @@
 'use client'
 
-type TopicData = {
-  id: string
-  title: string
-  body: string
-}
-
 import {useRouter} from 'next/navigation'
 
 export default function Create() {
@@ -30,14 +24,16 @@ export default function Create() {
           body: JSON.stringify({title, body}),
         }
 
-        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/topics`, options)
-          .then(res => res.json())
-          .then((res: TopicData) => {
-            const lastId = res.id
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/topics`,
+          options,
+        )
+        const topic = await res.json()
 
-            router.push(`/read/${lastId}`)
-          })
+        router.push(`/read/${topic.id}`)
+        router.refresh()
       }}>
+      <h2>Create</h2>
       <p>
         <input type="text" name="title" placeholder="title" />
       </p>

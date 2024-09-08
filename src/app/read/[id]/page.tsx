@@ -9,12 +9,10 @@ type TopicData = {
 }
 
 export default async function Read(props: Props) {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/topics/${props.params.id}`,
-    {
-      cache: 'no-cache',
-    },
-  )
+  const id = props.params.id
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/topics/${id}`, {
+    cache: 'no-cache',
+  })
   const topic: TopicData = await res.json()
 
   return (
